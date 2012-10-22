@@ -343,7 +343,7 @@ public class Switch extends CompoundButton {
 				mTouchX = x;
 				mTouchY = y;
 			}
-			return true;
+			break;
 		}
 
 		case MotionEvent.ACTION_MOVE: {
