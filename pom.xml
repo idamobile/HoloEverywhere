@@ -11,7 +11,7 @@
 	<groupId>com.github.christopheversieux</groupId>
 	<artifactId>holoeverywhere-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.3.1-SNAPSHOT</version>
+	<version>1.3.2-idamobile</version>
 
 	<name>HoloEverywhere (Parent)</name>
 	<description>Android library bringing Holo Theme to Android 1.6 and above.</description>
@@ -54,18 +54,23 @@
 
     <distributionManagement>
         <repository>
-            <uniqueVersion>true</uniqueVersion>
-            <id>${project.repo.release.id}</id>
-            <name>HoloEverywhere Repo</name>
-            <url>${project.release.repository.url}</url>
+            <id>ida-repo-releases</id>
+            <name>iDa Mobile Repo - Releases</name>
+            <url>http://project.idamob.ru:8000/nexus/content/repositories/releases</url>
         </repository>
         <snapshotRepository>
-            <uniqueVersion>false</uniqueVersion>
-            <id>${project.repo.snapshots.id}</id>
-            <name>HoloEverywhere Repo Snapshots</name>
-            <url>${project.snapshots.repository.url}</url>
+            <id>ida-repo-snapshots</id>
+            <name>iDa Mobile Repo - Snapshots</name>
+            <url>http://project.idamob.ru:8000/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>ida-repo-public</id>
+            <url>http://project.idamob.ru:8000/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -77,18 +82,9 @@
 		<android.version>4.1.1.4</android.version>
 		<android.platform>16</android.platform>
 		<android-support.version>r7</android-support.version>
-        <abs.version>4.2.0</abs.version>
+    <abs.version>4.2.0</abs.version>
 
 		<android-maven.version>3.3.2</android-maven.version>
-
-		<github.downloads.repositoryOwner>ChristopheVersieux</github.downloads.repositoryOwner>
-		<github.downloads.repositoryName>HoloEverywhere</github.downloads.repositoryName>
-
-        <project.repo.release.id>holoeverywhere-repo</project.repo.release.id>
-        <project.release.repository.url>https://oss.sonatype.org/service/local/staging/deploy/maven2</project.release.repository.url>
-
-        <project.repo.snapshots.id>holoeverywhere-repo-snapshots</project.repo.snapshots.id>
-        <project.snapshots.repository.url>https://oss.sonatype.org/content/repositories/snapshots</project.snapshots.repository.url>
 	</properties>
 
 	<dependencyManagement>
