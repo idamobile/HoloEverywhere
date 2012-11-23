@@ -233,6 +233,7 @@
 		<attr name="textAllCaps" format="boolean" />
 		<attr name="android:textAllCaps" />
 		<attr name="android:text" />
+		<attr name="android:fontFamily" />
 	</declare-styleable>
 	<declare-styleable name="Spinner">
 		<attr name="android:prompt" />
@@ -310,5 +311,6 @@
 		<attr name="android:textStyle" />
 		<attr name="android:textColor" />
 		<attr name="android:textAllCaps" />
+		<attr name="android:fontFamily" />
 	</declare-styleable>
 </resources>
