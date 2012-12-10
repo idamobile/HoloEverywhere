@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build.VERSION;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import com.WazaBe.HoloEverywhere.FontLoader;
 import com.WazaBe.HoloEverywhere.R;
 
 public class TextView extends android.widget.TextView {
@@ -28,7 +30,8 @@ public class TextView extends android.widget.TextView {
         int[] attrsArray = new int[] {
                 android.R.attr.textAppearance, // 0
         };
-        TypedArray ta = context.obtainStyledAttributes(attrs, attrsArray);
+        TypedArray ta = context.obtainStyledAttributes(attrs, attrsArray,
+                android.R.attr.textViewStyle, defStyle);
         int ap = ta.getResourceId(0, -1);
         TypedArray appearance = null;
         if (ap != -1) {
@@ -67,6 +70,31 @@ public class TextView extends android.widget.TextView {
         a.recycle();
         if (text != null) {
             setText(text);
+        }
+    }
+
+    @Override
+    public void setTextAppearance(Context context, int resid) {
+        super.setTextAppearance(context, resid);
+        TypedArray appearance =
+                context.obtainStyledAttributes(resid,
+                        R.styleable.TextAppearance);
+        if (appearance != null) {
+            String newFontFamily = null;
+            int n = appearance.getIndexCount();
+            for (int i = 0; i < n; i++) {
+                int attr = appearance.getIndex(i);
+                switch (attr) {
+                case R.styleable.TextAppearance_android_fontFamily:
+                    newFontFamily = appearance.getString(attr);
+                    break;
+                }
+
+                if (!TextUtils.equals(newFontFamily, fontFamily)) {
+                    FontLoader.apply(this);
+                }
+            }
+            appearance.recycle();
         }
     }
 
