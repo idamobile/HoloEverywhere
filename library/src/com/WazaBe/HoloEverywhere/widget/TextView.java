@@ -3,17 +3,21 @@ package com.WazaBe.HoloEverywhere.widget;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Build.VERSION;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import com.WazaBe.HoloEverywhere.FontLoader;
 import com.WazaBe.HoloEverywhere.R;
+import com.WazaBe.HoloEverywhere.util.FontFamilyUtils;
+import com.WazaBe.HoloEverywhere.util.FontFamilyUtils.FontFamilyExtension;
 
-public class TextView extends android.widget.TextView {
+public class TextView extends android.widget.TextView implements FontFamilyExtension {
     private boolean allCaps = false;
     private CharSequence originalText;
     private BufferType originalType;
+
     private String fontFamily;
 
     public TextView(Context context) {
@@ -27,30 +31,6 @@ public class TextView extends android.widget.TextView {
     public TextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        int[] attrsArray = new int[] {
-                android.R.attr.textAppearance, // 0
-        };
-        TypedArray ta = context.obtainStyledAttributes(attrs, attrsArray,
-                android.R.attr.textViewStyle, defStyle);
-        int ap = ta.getResourceId(0, -1);
-        TypedArray appearance = null;
-        if (ap != -1) {
-            appearance = context.obtainStyledAttributes(ap, R.styleable.TextAppearance);
-        }
-        if (appearance != null) {
-            int n = appearance.getIndexCount();
-            for (int i = 0; i < n; i++) {
-                int attr = appearance.getIndex(i);
-                switch (attr) {
-                case R.styleable.TextAppearance_android_fontFamily:
-                    fontFamily = appearance.getString(attr);
-                    break;
-                }
-            }
-            appearance.recycle();
-        }
-        ta.recycle();
-
         TypedArray a = getContext().obtainStyledAttributes(attrs,
                 R.styleable.TextView, defStyle, 0);
         if (a.hasValue(R.styleable.TextView_android_textAllCaps)) {
@@ -63,39 +43,47 @@ public class TextView extends android.widget.TextView {
         if (a.hasValue(R.styleable.TextView_android_text)) {
             text = a.getText(R.styleable.TextView_android_text);
         }
-
-        if (a.hasValue(R.styleable.TextView_android_fontFamily)) {
-            fontFamily = a.getString(R.styleable.TextView_android_fontFamily);
-        }
         a.recycle();
         if (text != null) {
             setText(text);
+        }
+
+        fontFamily = FontFamilyUtils.getFontFamily(context, attrs,
+                android.R.attr.textViewStyle, defStyle);
+        if (!TextUtils.isEmpty(fontFamily)) {
+            FontLoader.apply(this);
         }
     }
 
     @Override
     public void setTextAppearance(Context context, int resid) {
         super.setTextAppearance(context, resid);
-        TypedArray appearance =
-                context.obtainStyledAttributes(resid,
-                        R.styleable.TextAppearance);
-        if (appearance != null) {
-            String newFontFamily = null;
-            int n = appearance.getIndexCount();
-            for (int i = 0; i < n; i++) {
-                int attr = appearance.getIndex(i);
-                switch (attr) {
-                case R.styleable.TextAppearance_android_fontFamily:
-                    newFontFamily = appearance.getString(attr);
-                    break;
-                }
-
-                if (!TextUtils.equals(newFontFamily, fontFamily)) {
-                    FontLoader.apply(this);
-                }
-            }
-            appearance.recycle();
+        String newFontFamily = FontFamilyUtils.getFontFamily(context, resid);
+        if (!TextUtils.equals(newFontFamily, fontFamily)) {
+            FontLoader.apply(this);
         }
+    }
+
+    @Override
+    public void setCustomTypeface(Typeface customTypeface) {
+        super.setTypeface(customTypeface);
+    }
+
+    @Override
+    public void setTypeface(Typeface tf) {
+        super.setTypeface(tf);
+        FontFamilyUtils.onSetTypeface(this, tf);
+    }
+
+    @Override
+    public void setTypeface(Typeface tf, int style) {
+        super.setTypeface(tf, style);
+        FontFamilyUtils.onSetTypeface(this, tf, style);
+    }
+
+    @Override
+    public String getFontFamily() {
+        return fontFamily;
     }
 
     @Override
@@ -106,10 +94,6 @@ public class TextView extends android.widget.TextView {
 
     public boolean isAllCaps() {
         return allCaps;
-    }
-
-    public String getFontFamily() {
-        return fontFamily;
     }
 
     @Override
@@ -137,4 +121,5 @@ public class TextView extends android.widget.TextView {
         super.setText(allCaps ? originalText.toString().toUpperCase()
                 : originalText, originalType);
     }
+
 }

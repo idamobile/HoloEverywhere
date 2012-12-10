@@ -19,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.WazaBe.HoloEverywhere.util.FontFamilyUtils.FontFamilyExtension;
+
 public final class FontLoader {
     public static class HoloFont {
         public static final HoloFont ROBOTO = new HoloFont(-1);
@@ -54,7 +56,7 @@ public final class FontLoader {
 
     public static class FontFamilyMapper {
         private static Map<String, HoloFont> fontMap = new HashMap<String, FontLoader.HoloFont>();
-        {
+        static {
             fontMap.put("sans-serif", HoloFont.ROBOTO_REGULAR);
             fontMap.put("sans-serif-light", HoloFont.ROBOTO_LIGHT);
             fontMap.put("sans-serif-condensed", HoloFont.ROBOTO_CONDENSED);
@@ -136,8 +138,8 @@ public final class FontLoader {
             Typeface typeface = text.getTypeface();
 
             String fontFamily = null;
-            if (text instanceof com.WazaBe.HoloEverywhere.widget.TextView) {
-                fontFamily = ((com.WazaBe.HoloEverywhere.widget.TextView) text).getFontFamily();
+            if (text instanceof FontFamilyExtension) {
+                fontFamily = ((FontFamilyExtension) text).getFontFamily();
 
             }
             if (typeface == null && fontFamily == null) {
@@ -160,7 +162,11 @@ public final class FontLoader {
             if (!font.ignore) {
                 typeface = loadTypeface(view.getContext(), font.font);
                 if (typeface != null) {
-                    text.setTypeface(typeface);
+                    if (text instanceof FontFamilyExtension) {
+                        ((FontFamilyExtension) text).setCustomTypeface(typeface);
+                    } else {
+                        text.setTypeface(typeface);
+                    }
                 }
             }
         }
