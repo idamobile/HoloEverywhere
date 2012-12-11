@@ -58,6 +58,7 @@ public class Button extends android.widget.Button implements FontFamilyExtension
         super.setTextAppearance(context, resid);
         String newFontFamily = FontFamilyUtils.getFontFamily(context, resid);
         if (!TextUtils.equals(newFontFamily, fontFamily)) {
+            this.fontFamily = newFontFamily;
             FontLoader.apply(this);
         }
     }

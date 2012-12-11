@@ -59,6 +59,7 @@ public class CheckedTextView extends android.widget.CheckedTextView implements F
         super.setTextAppearance(context, resid);
         String newFontFamily = FontFamilyUtils.getFontFamily(context, resid);
         if (!TextUtils.equals(newFontFamily, fontFamily)) {
+            this.fontFamily = newFontFamily;
             FontLoader.apply(this);
         }
     }

@@ -60,6 +60,7 @@ public class TextView extends android.widget.TextView implements FontFamilyExten
         super.setTextAppearance(context, resid);
         String newFontFamily = FontFamilyUtils.getFontFamily(context, resid);
         if (!TextUtils.equals(newFontFamily, fontFamily)) {
+            this.fontFamily = newFontFamily;
             FontLoader.apply(this);
         }
     }
