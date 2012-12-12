@@ -108,6 +108,8 @@ public class Switch extends CompoundButton implements FontFamilyExtension {
         refreshDrawableState();
         setChecked(isChecked());
 
+        setClickable(true);
+
         fontFamily = FontFamilyUtils.getFontFamily(context, attrs,
                 R.attr.switchStyle, defStyle);
         if (!TextUtils.isEmpty(fontFamily)) {
