@@ -1,3 +1,5 @@
 *.DS_Store
 
 HoloEverywhereLib/**
+library/.idea/*
+library/ida-pro-holo-everywhere.iml
