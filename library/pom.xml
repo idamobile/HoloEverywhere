@@ -4,12 +4,12 @@
 
 	<artifactId>holoeverywhere-library</artifactId>
 	<name>library</name>
-	<packaging>apklib</packaging>
+	<packaging>aar</packaging>
 
 	<parent>
 		<groupId>com.github.christopheversieux</groupId>
 		<artifactId>holoeverywhere-parent</artifactId>
-		<version>1.3.3-idamobile-SNAPSHOT</version>
+		<version>1.3.4-idamobile-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
@@ -20,18 +20,23 @@
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
 			<artifactId>actionbarsherlock</artifactId>
-			<type>apklib</type>
+			<type>aar</type>
  		</dependency>
+    <dependency>
+      <groupId>com.android.support</groupId>
+      <artifactId>support-v4</artifactId>
+      <version>${android-support.version}</version>
+    </dependency>
 	</dependencies>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>test</testSourceDirectory>
 
 		<plugins>
 			<plugin>
-				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
-				<artifactId>android-maven-plugin</artifactId>
+				<groupId>com.simpligility.maven.plugins</groupId>
+          <artifactId>android-maven-plugin</artifactId>
 				<extensions>true</extensions>
                 <configuration>
                     <proguard>
@@ -54,7 +59,7 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+                        <groupId>com.simpligility.maven.plugins</groupId>
                         <artifactId>android-maven-plugin</artifactId>
                         <extensions>true</extensions>
                         <executions>
@@ -67,6 +72,8 @@
                             </execution>
                         </executions>
                         <configuration>
+                            <disableConflictingDependenciesWarning>true</disableConflictingDependenciesWarning>
+                        
                             <manifest>
                                 <versionName>${project.version}</versionName>
                             </manifest>

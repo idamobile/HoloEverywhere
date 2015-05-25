@@ -35,10 +35,8 @@ public class FontFamilyUtils {
             int n = appearance.getIndexCount();
             for (int i = 0; i < n; i++) {
                 int attr = appearance.getIndex(i);
-                switch (attr) {
-                case R.styleable.TextAppearance_android_fontFamily:
+                if (attr == R.styleable.TextAppearance_android_fontFamily) {
                     fontFamily = appearance.getString(attr);
-                    break;
                 }
             }
             appearance.recycle();
@@ -62,10 +60,8 @@ public class FontFamilyUtils {
             int n = appearance.getIndexCount();
             for (int i = 0; i < n; i++) {
                 int attr = appearance.getIndex(i);
-                switch (attr) {
-                case R.styleable.TextAppearance_android_fontFamily:
+                if (attr == R.styleable.TextAppearance_android_fontFamily) {
                     fontFamily = appearance.getString(attr);
-                    break;
                 }
             }
             appearance.recycle();

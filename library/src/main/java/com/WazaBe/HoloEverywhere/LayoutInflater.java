@@ -1,16 +1,16 @@
 package com.WazaBe.HoloEverywhere;
 
+import android.content.Context;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import com.WazaBe.HoloEverywhere.app.Application;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
-
-import android.content.Context;
-import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.WazaBe.HoloEverywhere.app.Application;
 
 public class LayoutInflater extends android.view.LayoutInflater implements
 Cloneable {
@@ -28,6 +28,7 @@ Cloneable {
                         return view;
                     }
                 } catch (RuntimeException e) {
+                    Log.e(LayoutInflater.class.getName(), "onCreateView()", e);
                 }
             }
             return null;
